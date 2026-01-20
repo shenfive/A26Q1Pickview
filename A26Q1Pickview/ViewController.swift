@@ -35,14 +35,22 @@ extension ViewController:UIPickerViewDelegate,UIPickerViewDataSource{
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch component {
-        case 0: //星座
-     
+        case 0: //血型
             return bloudType[row]
-        case 1: //血型
+        case 1: //星座
             return astrological[row]
         default:
             return  nil
         }
+        
+    }
+    
+    var selectedBT = 0
+    var selectedAS = 0
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print("row\(row) \(bloudType[row]):\ncomponent\(component) \(astrological[component])")
+        
         
     }
 }
