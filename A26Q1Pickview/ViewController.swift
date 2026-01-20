@@ -14,6 +14,7 @@ class ViewController: UIViewController {
                         "巨蟹宮","獅子宮","處女宮","天秤宮","天蠍宮",
                         "射手宮","摩羯宮","水瓶宮","雙魚宮"]
     var bloudType = ["請選擇你的血型","A","B","O","AB"]
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,17 @@ class ViewController: UIViewController {
         thePickerView.dataSource = self
         
     }
+    
+    //進入下一個畫面前的處理
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goP2"{
+            if let nextVC = segue.destination as? SecondViewController{
+                nextVC.msg = "\(astrological[thePickerView.selectedRow(inComponent: 1)]) \n \(bloudType[thePickerView.selectedRow(inComponent: 0)]) 型 \n 一定發大財"
+            }
+        }
+    }
+
+    
 }
 
 extension ViewController:UIPickerViewDelegate,UIPickerViewDataSource{
@@ -45,11 +57,16 @@ extension ViewController:UIPickerViewDelegate,UIPickerViewDataSource{
         
     }
     
-    var selectedBT = 0
-    var selectedAS = 0
+ 
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("row\(row) \(bloudType[row]):\ncomponent\(component) \(astrological[component])")
+ 
+        
+        if pickerView.selectedRow(inComponent: 0) != 0
+            && pickerView.selectedRow(inComponent: 1) != 0{
+            performSegue(withIdentifier: "goP2", sender: nil)
+        }
+        
         
         
     }
