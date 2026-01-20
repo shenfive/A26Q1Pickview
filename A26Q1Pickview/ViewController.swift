@@ -8,12 +8,41 @@
 import UIKit
 
 class ViewController: UIViewController {
+    @IBOutlet weak var thePickerView: UIPickerView!
+    // 首先，我們需要有 星座血型的陣列
+    var astrological = ["請選擇你的星座","白羊宮","金牛宮","雙子宮",
+                        "巨蟹宮","獅子宮","處女宮","天秤宮","天蠍宮",
+                        "射手宮","摩羯宮","水瓶宮","雙魚宮"]
+    var bloudType = ["請選擇你的血型","A","B","O","AB"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        thePickerView.delegate = self
+        thePickerView.dataSource = self
+        
     }
-
-
 }
 
+extension ViewController:UIPickerViewDelegate,UIPickerViewDataSource{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        2
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return component == 0 ? bloudType.count : astrological.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch component {
+        case 0: //星座
+     
+            return bloudType[row]
+        case 1: //血型
+            return astrological[row]
+        default:
+            return  nil
+        }
+        
+    }
+}
